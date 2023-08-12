@@ -1,0 +1,17 @@
+outputDir = getDirectory("Select output directory");
+
+for (i = 1; i <= nImages; i++) {
+  selectImage(i);
+  title = getTitle();
+  index = title.indexOf("/");  // find the index of "/" in the title
+  if (index >= 0) {
+    newTitle = title.substring(index + 1);  // extract the title starting from "Mark_and_Find" without "/"
+    newTitle = newTitle.replace("/", "_");  // replace "/" with "_"
+    // extract the image file name by removing the extension from the title
+    dotIndex = title.lastIndexOf(".");
+    imageFileName = title.substring(0, dotIndex);
+    saveAs("TIFF", outputDir + imageFileName + newTitle + ".tif");  // add image file name before the output
+  }
+}
+
+run("Close All");
