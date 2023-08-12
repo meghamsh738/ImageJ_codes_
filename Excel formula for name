@@ -1,0 +1,1 @@
+=RIGHT(A2,LEN(A2)-FIND("*",SUBSTITUTE(A2,"\","*",LEN(A2)-LEN(SUBSTITUTE(A2,"\","")))))
