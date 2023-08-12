@@ -1,15 +1,16 @@
-**Useful ImageJ Macro Commands for Efficient Analysis**
+Useful ImageJ Macro Commands for Efficient Analysis
+Welcome to the world of Useful ImageJ Macro Commands that can revolutionize your image analysis workflow. Whether you're dealing with a handful or a plethora of images, these macros are here to save you time, effort, and frustration.
 
-**Color Channel Adjustment and Batch Saving:**
-When dealing with a large number of images, manually changing the color channels and saving them individually can be time-consuming. This macro automates the process. It's especially useful when you have multiple images to handle. You can now set the channels to different colors and save them all with a single command.
+Color Channel Adjustment and Batch Saving
+Manually tweaking color channels and saving images individually can be a daunting task, especially when dealing with numerous images. But fear not, for this macro comes to your rescue. Imagine setting different colors for your channels and then saving them all with just a single command. No more repetitive actions – just efficiency and convenience.
 
-**Max Intensity Montage Creation:**
-If you need to quickly assess images for specific phenotypes, this macro comes to the rescue. It creates a montage of your images, showing individual channels, merged images, and labels. This is handy for an overall view of your data. For cases where channel intensity is a crucial factor, you can manually adjust the reference image's channel intensities and propagate those settings to all images before using the macro to create max or average intensity montages.
+Max Intensity Montage Creation
+Quickly assessing images for specific phenotypes becomes a breeze with this macro. Picture a comprehensive montage showcasing individual channels, merged images, and even labels. Whether it's gaining an overall perspective of your data or fine-tuning channel intensities, this macro is your ally. Adjust intensities for a reference image and apply those settings across the board before creating max or average intensity montages.
 
-**Separate Image Saving for Leica Sp8 Confocal Microscopy:**
-Specific to Leica Sp8 confocal microscopy (though applicability to other systems may vary), this macro addresses a common issue. When multiple images are acquired in the LasX software, they can open as a sequence in ImageJ. For multipoint images, this can be problematic. The macro simplifies the process by saving each image from the sequence separately into a designated folder. Note that importing such split images into Imaris may have some issues, so keeping the original project file as a backup is recommended.
+Separate Image Saving for Leica Sp8 Confocal Microscopy
+Specifically tailored for Leica Sp8 confocal microscopy (though adaptable to other systems), this macro tackles a familiar hiccup. When multiple images open as a sequence in ImageJ, it's not uncommon for complications to arise, particularly with multipoint images. Fear not – this macro simplifies your life by neatly saving each sequence image separately into a designated folder. Keep your original project file as a safety net, as importing split images into Imaris might have quirks.
 
-**Excel Formula for File Name Extraction:**
-This Excel tip helps streamline your workflow. Instead of manually typing image file names into your Excel analysis, you can extract the filenames from a folder containing the images. Sort the images by name, copy the file path of the first image, and use the following formula in Excel: =RIGHT(A2,LEN(A2)-FIND("*",SUBSTITUTE(A2,"\","*",LEN(A2)-LEN(SUBSTITUTE(A2,"\",""))))). This formula automatically extracts and displays the filenames without their paths, saving you time and effort.
+Excel Formula for File Name Extraction
+Excel enthusiasts, rejoice! Banish the tedium of manually inputting image file names into your analysis. Harness the power of a simple formula to extract filenames from a folder, saving you from typing fatigue. Sort your images, copy the file path of the first one, and let this formula work its magic: =RIGHT(A2,LEN(A2)-FIND("*",SUBSTITUTE(A2,"\","*",LEN(A2)-LEN(SUBSTITUTE(A2,"\",""))))). Watch as filenames elegantly pop up, sans the cumbersome paths.
 
-By utilizing these ImageJ macros and Excel tricks, you can significantly expedite your image analysis workflow and enhance your overall efficiency in handling large datasets.
+By immersing yourself in these ImageJ macros and Excel wizardry, you're unlocking the potential to breeze through your image analysis. Streamline your workflow, boost efficiency, and conquer the challenges of handling expansive datasets – it's all within your grasp.
