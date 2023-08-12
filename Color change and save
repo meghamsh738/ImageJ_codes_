@@ -1,0 +1,32 @@
+from ij import IJ
+from ij.io import DirectoryChooser
+import os
+
+# Select the directory containing the .lif files
+dc = DirectoryChooser("Choose directory containing .lif files")
+dir = dc.getDirectory()
+
+# Create a new directory for the color corrected images
+new_dir = os.path.join(dir, "color corrected images")
+if not os.path.exists(new_dir):
+    os.makedirs(new_dir)
+
+# Loop through the .lif files in the directory
+for filename in os.listdir(dir):
+    if filename.endswith(".lif"):
+        # Open the image
+        imp = IJ.openImage(os.path.join(dir, filename))
+        
+        # Change the channel colors
+        imp.setC(1)
+        IJ.run(imp, "Blue", "")
+        imp.setC(2)
+        IJ.run(imp, "Red", "")
+        imp.setC(3)
+        IJ.run(imp, "Green", "")
+        imp.setC(4)
+        IJ.run(imp, "Magenta", "")
+        
+        # Save the color corrected image
+        new_filename = os.path.join(new_dir, filename)
+        IJ.saveAs(imp, "Tiff", new_filename)
