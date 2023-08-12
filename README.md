@@ -1,36 +1,9 @@
-Maximum Intensity Projection and Montage Generation for Microscopy Images
+Following folder contains useful imageJ macro commands that can fasten any analysis. 
 
-This repository contains a set of scripts for image processing and analysis of microscopy images using the ImageJ software. The code is designed to perform two main tasks: generating maximum intensity projections (MIPs) and creating montages of multi-channel images.
+**1)Color change and save**: Many times after image acquisition, we would like to set the channels in a different color. But what if you have 100 images? This macro would save you the effort of manually opening all the images and saving them separately. 
 
-Overview:
-Microscopy images often consist of multiple layers, each representing a different focal plane or channel. Maximum intensity projections provide a way to visualize the most intense pixel values across all layers, enhancing the visibility of structures within the image. Additionally, the code can create montages of multi-channel images, which arrange and display the channels in a grid pattern for easier comparison and analysis.
+**2)Max intensity montage** : In case you want to take a overall look at your images and screen for any phenotypes, this macro is a great way which makes montage of your image with individual channels followed by all merged image along with the name tag. In addition to that, its easy to make a ppt at the end and import images as album and screen the images. In cases where the intensity of the channel itself is a phenotype, its suggested to open all the images manually, set the intensity of all channels for a reference image and set the same intensities across all images and run only the part of macro that starts saving max projections. Similar can be done for Avg intensity montage. Just change the option at   IJ.run("Z Project...", "projection=[Max Intensity]") to Average Intensity. 
 
-Features:
+**3)Saving as separate** : This macro specific to Leica Sp8 confocal microcopy. I'm not sure if its the same with others. During acquiring multiple images in the LasX software, unless each image is acquired in a different project, it opens as a sequence in image J. This is incredibly painful to work with in case of a multipoint image since each and every image has to be copied into another project and saved separately. This macro is useful in such scenario. The macro requires an image to be open. It saves each image separately into prompted folder with the name tag of the sequence. IMPORTANT NOTE: I have observed that a single project file containing multiple sequences once extracted into single images can have issues while importing into Imaris. Not sure what is the issue here. So its always recommended to have the main file as a backup. Besides Imaris itself can split the image into separate files once imported into it. 
 
-Maximum Intensity Projection (MIP) Generation:
-
-The code starts by prompting the user to select an input directory containing microscopy image files.
-For each image file in the directory, the code opens the image and generates a maximum intensity projection using the "Z Project..." command in ImageJ.
-The resulting MIP is saved as a TIFF image in a new directory named "MAX" located alongside the input directory.
-After processing all images, the code closes the opened images.
-Multi-Channel Montage Generation:
-
-After MIP generation, the code prompts the user to select the "MAX" directory containing the generated MIPs.
-For each MIP image in the directory, the code performs the following steps:
-Opens the MIP image and splits it into individual channels using the "Split Channels" command.
-Merges the channels back together using the "Merge Channels..." command.
-Flattens the image to a single layer.
-Converts the image to a stack using the "Images to Stack" command.
-Generates a montage of the stack with customizable parameters such as columns, rows, scale, and border using the "Make Montage..." command.
-Copies the resulting montage image to the system clipboard.
-Saves the montage image as a TIFF file in a subdirectory named "Montage" within the "MAX" directory.
-Usage:
-
-Install ImageJ on your system.
-Place your microscopy images in a directory.
-Run the provided scripts in ImageJ's script editor or macro runner.
-Follow the prompts to select the input directory and view the processed images.
-Note:
-This code assumes that you have ImageJ installed and that your microscopy images are in standard image formats such as JPEG, PNG, TIFF, or LIF. Adjustments may be needed based on your specific use case and image formats.
-
-Feel free to customize and extend the code to suit your specific microscopy image processing needs.
+**4)Excel formula for name** : This is a simple excel command used for getting the same sequence of file names from a given folder so that whenver you are analysing something, you dont have to type the name of the image file in excel. Open the folder that has all the images, sort by "name" , press shift and right click on the first image file, press on "copy as path", paste in the excel sheet and apply the following formula : =RIGHT(A2,LEN(A2)-FIND("*",SUBSTITUTE(A2,"\","*",LEN(A2)-LEN(SUBSTITUTE(A2,"\","")))))
