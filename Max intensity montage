@@ -1,0 +1,78 @@
+
+from ij import IJ
+import os
+
+# Prompt the user to select the input directory
+input_dir = IJ.getDirectory("Input Directory")
+
+# Create the "MAX" directory in the same directory as the input directory
+output_dir = os.path.join(os.path.dirname(input_dir), "MAX")
+if not os.path.exists(output_dir):
+  os.makedirs(output_dir)
+
+# Get a list of the image files in the input directory
+image_files = [f for f in os.listdir(input_dir) if f.endswith(".jpg") or f.endswith(".png") or f.endswith(".tiff") or f.endswith(".lif")]
+
+# Loop through each image file
+for image_file in image_files:
+  # Open the image file
+  IJ.open(os.path.join(input_dir, image_file))
+
+  # Make a maximum intensity projection
+  IJ.run("Z Project...", "projection=[Max Intensity]")
+
+  # Save the resulting image to the "MAX" directory
+  output_file = os.path.join(output_dir, image_file)
+  IJ.saveAs("Tiff", output_file)
+
+  # Close the current image
+  IJ.run("Close")
+
+  # Close all opened images
+  IJ.run("Close All")
+
+# Import the required libraries
+from ij import IJ
+import os
+
+# Get a list of the image files in the "MAX" directory
+input_dir = IJ.getDirectory("Input Directory")
+image_files = [f for f in os.listdir(input_dir) if f.endswith(".jpg") or f.endswith(".png") or f.endswith(".tiff") or f.endswith(".lif") or f.endswith(".tif")]
+
+# Create the "MAX/Montage" directory if it does not exist
+output_dir = os.path.join(input_dir, "Montage")
+if not os.path.exists(output_dir):
+  os.makedirs(output_dir)
+
+# Loop through each image file
+for image_file in image_files:
+  # Open the image file
+  IJ.open(os.path.join(input_dir, image_file))
+
+  # Split the channels
+  IJ.run("Split Channels")
+
+  # Merge the channels
+  IJ.run("Merge Channels...")
+
+  # Flatten the image
+  IJ.run("Flatten")
+
+  # Convert the image to a stack
+  IJ.run("Images to Stack", "name=Stack title=[] use")
+
+  # Make a montage
+  IJ.run("Make Montage...", "columns=5 rows=1 scale=1 border=3 label font=50")
+
+  # Copy the resulting image to the clipboard
+  IJ.run("Copy to System")
+
+  # Save the image to the "MAX/Montage" directory
+  output_file = os.path.join(output_dir, image_file)
+  IJ.saveAs("Tiff", output_file)
+
+  # Close all opened images
+  IJ.run("Close All")
+
+
+
