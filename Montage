@@ -1,0 +1,113 @@
+1) Open all the images that you want to compile.  Make sure colors are set. Run the below macro
+
+for (n = 1; n <= nImages; n++) {
+    // run("Channels Tool...");
+    Stack.setChannel(1);
+    run("Blue");
+    Stack.setChannel(2);
+    run("Red");
+    Stack.setChannel(3);
+    run("Green");
+    Stack.setChannel(4);
+    run("Magenta");
+
+    selectImage(n);
+}
+
+
+
+2) Run the max projection macro using 
+
+
+for (n=1; n<=nImages; n++) { 
+    run("Z Project...", "projection=[Max Intensity]");	
+	selectImage(n);  
+} 
+
+
+close MAX MAX images and original images
+
+
+3) Set and adjust intensities accordingly and save the images using below macro : 
+
+Set intensities and apply to all channels of all the images. Then use the below macro to save the images with the modified LUT values. 
+
+
+for (n = 1; n <= nImages; n++) {
+    run("Apply LUT");
+    selectImage(n);
+}
+
+if (nImages == 0)
+    exit("No images are open");
+
+dir = getDirectory("Choose a Directory");
+
+for (n = 1; n <= nImages; n++) {
+    selectImage(n);
+    title = getTitle();
+    title = title.replace(".lif.+?/", "_");
+
+    saveAs("tiff", dir + title);
+}
+
+
+
+In other cases, you can replace “/” part with others things that are extra in your images
+for example 
+
+	
+
+4) Now use the below code for saving montages
+
+# Import the required libraries
+from ij import IJ
+import os
+
+# Get a list of the image files in the "MAX" directory
+input_dir = IJ.getDirectory("Input Directory")
+image_files = [f for f in os.listdir(input_dir) if f.endswith(".jpg") or f.endswith(".png") or f.endswith(".tiff") or f.endswith(".lif") or f.endswith(".tif")]
+
+# Create the "MAX/Montage" directory if it does not exist
+output_dir = os.path.join(input_dir, "Montage")
+if not os.path.exists(output_dir):
+  os.makedirs(output_dir)
+
+# Loop through each image file
+for image_file in image_files:
+  # Open the image file
+  IJ.open(os.path.join(input_dir, image_file))
+
+  # Extract the filename (without extension) to use as 'title'
+  title = os.path.splitext(image_file)[0]
+
+  # Split the channels
+  IJ.run("Split Channels")
+
+  # Merge channels with the image title
+  IJ.run("Merge Channels...", "c1=[C1-" + title + ".tif] c2=[C2-" + title + ".tif] c3=[C3-" + title + ".tif] create keep")
+
+  # Flatten the image
+  IJ.run("Flatten")
+
+  # Convert the image to a stack
+  IJ.run("Images to Stack", "name=Stack title=[] use")
+
+  # Make a montage
+  IJ.run("Make Montage...", "columns=5 rows=1 scale=1 border=3 label font=50")
+
+  # Add a scale bar with a size of 50um at the top right
+  IJ.run("Scale Bar...", "width=50 height=1 font=50 color=White location=[Upper Right] bold overlay")
+
+  # Copy the resulting image to the clipboard
+  IJ.run("Copy to System")
+
+  # Save the image to the "MAX/Montage" directory
+  output_file = os.path.join(output_dir, image_file)
+  IJ.saveAs("Tiff", output_file)
+
+  # Close all opened images
+  IJ.run("Close All")
+
+5) Import montages into powerpoint as an album such that each slide will have one image. Now browse through the images and arrange if required. 
+
